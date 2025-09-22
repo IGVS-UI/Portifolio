@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Igor Gomes Silva - Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* CSS Variables for Theming */
+        :root {
+            --primary-color: #4a6cf7;
+            --secondary-color: #6f42c1;
+            --text-color: #333;
+            --bg-color: #fff;
+            --card-bg: #f8f9fa;
+            --header-bg: rgba(255, 255, 255, 0.95);
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        /* Dark Mode Variables */
+        [data-theme="dark"] {
+            --primary-color: #6c8dfa;
+            --secondary-color: #8c68d6;
+            --text-color: #f0f0f0;
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --header-bg: rgba(18, 18, 18, 0.95);
+            --shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            transition: var(--transition);
+        }
+
+        /* Container */
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: var(--header-bg);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin-left: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .theme-toggle, .language-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            margin-left: 1rem;
+            color: var(--text-color);
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover, .language-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        /* Hero Section */
+        #hero {
+            padding: 8rem 0 5rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .hero-image {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            border-radius: 20px;
+            height: 400px;
+            width: 400px;
+            position: relative;
+            left: 10%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            order: 1; /* Alterado para 1 (esquerda) */
+        }
+
+        .hero-image i {
+            font-size: 8rem;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        .hero-text {
+            order: 2; /* Alterado para 2 (direita) */
+        }
+
+        .hero-text h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+        }
+
+        .hero-text p {
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        /* Skills Section */
+        #skills {
+            padding: 5rem 0;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            margin: 2rem 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .skills-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .skill {
+            background-color: var(--bg-color);
+            padding: 1.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .skill:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+
+        .skill-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .html-icon {
+            color: #e34f26;
+        }
+
+        .css-icon {
+            color: #264de4;
+        }
+
+        .js-icon {
+            color: #f7df1e;
+        }
+
+        .figma-icon {
+            color: #a259ff;
+        }
+
+        .php-icon {
+            color: #777bb4;
+        }
+
+        .skill-info {
+            display: flex;
+            align-items: center;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            font-size: 1.2rem;
+        }
+
+        .skill-percentage {
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .progress-bar {
+            height: 10px;
+            background-color: #e9ecef;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-top: 0.5rem;
+        }
+
+        .progress {
+            height: 100%;
+            background-color: var(--primary-color);
+            border-radius: 10px;
+            width: 0;
+            transition: width 1.5s ease-in-out;
+        }
+
+        /* Contact Section */
+        #contact {
+            padding: 5rem 0;
+        }
+
+        .contact-container {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .contact-btn {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow);
+        }
+
+        .contact-btn:hover {
+            transform: translateY(-5px);
+            background-color: var(--secondary-color);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            background-color: var(--card-bg);
+            border-radius: 20px;
+        }
+
+        /* Animations */
+        .hidden {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 1s;
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .hero-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .hero-image {
+                order: 1;
+                height: 300px;
+                margin-bottom: 2rem;
+            }
+            
+            .hero-text {
+                order: 2;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .menu-btn {
+                display: block;
+                font-size: 1.5rem;
+                background: none;
+                border: none;
+                color: var(--text-color);
+                cursor: pointer;
+            }
+            
+            .hero-text h1 {
+                font-size: 2rem;
+            }
+            
+            .skill-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .skill-percentage {
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">IGS</div>
+                <ul class="nav-links">
+                    <li><a href="#hero" data-i18n="about">Sobre Mim</a></li>
+                    <li><a href="#skills" data-i18n="skills">Habilidades</a></li>
+                    <li><a href="#contact" data-i18n="contact">Contato</a></li>
+                </ul>
+                <div class="nav-controls">
+                    <button class="theme-toggle" id="themeToggle">
+                        <i class="fas fa-moon"></i>
+                    </button>
+                    <button class="language-toggle" id="languageToggle">
+                        <i class="fas fa-globe"></i> <span id="languageText">PT</span>
+                    </button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="hero">
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-image">
+                   <img src="photo.png" alt=""     class=     "fas fa-user-circle" >
+                </div>
+                <div class="hero-text">
+                    <h1 data-i18n="hello">Olá! Eu sou Igor Gomes Silva</h1>
+                    <p data-i18n="description1">Sou estudante do curso de Informática para Internet (InfoNet) na ETEC Adhemar Batista Heméritas. Tenho grande interesse pela área de tecnologia e busco constantemente aprender e aprimorar meus conhecimentos em programação, design, desenvolvimento web e ferramentas digitais.</p>
+                    <p data-i18n="description2">Durante minha formação, estou adquirindo habilidades técnicas e práticas que me permitem criar soluções criativas e funcionais para diferentes necessidades, unindo teoria e prática. Além disso, valorizo muito o trabalho em equipe, a troca de experiências e a busca por inovação.</p>
+                    <p data-i18n="description3">Meu objetivo é continuar me desenvolvendo como profissional de tecnologia, contribuindo com projetos que envolvam creatividade, eficiência e impacto positivo.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills">
+        <div class="container">
+            <h2 class="section-title" data-i18n="mySkills">Minhas Habilidades</h2>
+            <div class="skills-container">
+                <div class="skill hidden">
+                    <div class="skill-header">
+                        <div class="skill-info">
+                            <i class="fab fa-html5 skill-icon html-icon"></i>
+                            <span class="skill-name">HTML</span>
+                        </div>
+                        <span class="skill-percentage">90%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" data-width="90"></div>
+                    </div>
+                </div>
+                
+                <div class="skill hidden">
+                    <div class="skill-header">
+                        <div class="skill-info">
+                            <i class="fab fa-css3-alt skill-icon css-icon"></i>
+                            <span class="skill-name">CSS</span>
+                        </div>
+                        <span class="skill-percentage">70%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" data-width="70"></div>
+                    </div>
+                </div>
+                
+                <div class="skill hidden">
+                    <div class="skill-header">
+                        <div class="skill-info">
+                            <i class="fab fa-js-square skill-icon js-icon"></i>
+                            <span class="skill-name">JavaScript</span>
+                        </div>
+                        <span class="skill-percentage">20%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" data-width="20"></div>
+                    </div>
+                </div>
+                
+                <div class="skill hidden">
+                    <div class="skill-header">
+                        <div class="skill-info">
+                            <i class="fab fa-figma skill-icon figma-icon"></i>
+                            <span class="skill-name">Figma</span>
+                        </div>
+                        <span class="skill-percentage">50%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" data-width="50"></div>
+                    </div>
+                </div>
+                
+                <div class="skill hidden">
+                    <div class="skill-header">
+                        <div class="skill-info">
+                            <i class="fab fa-php skill-icon php-icon"></i>
+                            <span class="skill-name">PHP</span>
+                        </div>
+                        <span class="skill-percentage">10%</span>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress" data-width="10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="container">
+            <h2 class="section-title" data-i18n="contactMe">Entre em Contato</h2>
+            <div class="contact-container">
+                <a href="https://github.com/IGVS-UI" class="contact-btn">
+                    <i class="fab fa-github"></i>
+                </a>
+                <a href="https://www.linkedin.com/in/igor-gomes-silva-893b33378/" class="contact-btn">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <a href="https://mail.google.com/mail/u/0/#inbox" class="contact-btn">
+                    <i class="far fa-envelope"></i>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <p data-i18n="copyright">&copy; 2025 Igor Gomes Silva. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Theme Toggle Functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        themeToggle.addEventListener('click', () => {
+            if (document.documentElement.getAttribute('data-theme') === 'dark') {
+                document.documentElement.removeAttribute('data-theme');
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+            } else {
+                document.documentElement.setAttribute('data-theme', 'dark');
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+            }
+        });
+
+        // Scroll Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('show');
+                    
+                    // Animate progress bars
+                    if (entry.target.classList.contains('skill')) {
+                        const progressBar = entry.target.querySelector('.progress');
+                        const width = progressBar.getAttribute('data-width');
+                        setTimeout(() => {
+                            progressBar.style.width = width + '%';
+                        }, 200);
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.hidden').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Language toggle functionality
+        const languageToggle = document.getElementById('languageToggle');
+        const languageText = document.getElementById('languageText');
+        let currentLanguage = 'pt';
+        
+        // Translations
+        const translations = {
+            'pt': {
+                'about': 'Sobre Mim',
+                'skills': 'Habilidades',
+                'contact': 'Contato',
+                'hello': 'Olá! Eu sou Igor Gomes Silva',
+                'description1': 'Sou estudante do curso de Informática para Internet (InfoNet) na ETEC Adhemar Batista Heméritas. Tenho grande interesse pela área de tecnologia e busco constantemente aprender e aprimorar meus conhecimentos em programação, design, desenvolvimento web e ferramentas digitais.',
+                'description2': 'Durante minha formação, estou adquirindo habilidades técnicas e práticas que me permitem criar soluções criativas e funcionais para diferentes necessidades, unindo teoria e prática. Além disso, valorizo muito o trabalho em equipe, a troca de experiências e a busca por inovação.',
+                'description3': 'Meu objetivo é continuar me desenvolvendo como profissional de tecnologia, contribuindo com projetos que envolvam criatividade, eficiência e impacto positivo.',
+                'mySkills': 'Minhas Habilidades',
+                'contactMe': 'Entre em Contato',
+                'copyright': '© 2023 Igor Gomes Silva. Todos os direitos reservados.'
+            },
+            'en': {
+                'about': 'About Me',
+                'skills': 'Skills',
+                'contact': 'Contact',
+                'hello': 'Hello! I am Igor Gomes Silva',
+                'description1': 'I am a student of Internet Informatics (InfoNet) at ETEC Adhemar Batista Heméritas. I have a great interest in the technology field and constantly seek to learn and improve my knowledge in programming, design, web development, and digital tools.',
+                'description2': 'During my training, I am acquiring technical and practical skills that allow me to create creative and functional solutions for different needs, combining theory and practice. Furthermore, I highly value teamwork, sharing experiences, and the pursuit of innovation.',
+                'description3': 'My goal is to continue developing as a technology professional, contributing to projects that involve creativity, efficiency, and positive impact.',
+                'mySkills': 'My Skills',
+                'contactMe': 'Contact Me',
+                'copyright': '© 2023 Igor Gomes Silva. All rights reserved.'
+            }
+        };
+
+        languageToggle.addEventListener('click', () => {
+            // Toggle between languages
+            currentLanguage = currentLanguage === 'pt' ? 'en' : 'pt';
+            languageText.textContent = currentLanguage === 'pt' ? 'PT' : 'EN';
+            
+            // Apply translations
+            document.querySelectorAll('[data-i18n]').forEach(element => {
+                const key = element.getAttribute('data-i18n');
+                if (translations[currentLanguage][key]) {
+                    element.textContent = translations[currentLanguage][key];
+                }
+            });
+        });
+    </script>
+</body>
+</html>
