@@ -46,6 +46,79 @@
             color: var(--text-color);
             background-color: var(--bg-color);
             transition: var(--transition);
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 3D Background */
+        .background-3d {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .shape {
+            position: absolute;
+            opacity: 0.1;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            animation: float 20s infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 300px;
+            height: 300px;
+            top: 10%;
+            left: 5%;
+            animation-duration: 25s;
+        }
+
+        .shape:nth-child(2) {
+            width: 200px;
+            height: 200px;
+            top: 60%;
+            left: 80%;
+            animation-duration: 30s;
+            animation-direction: reverse;
+        }
+
+        .shape:nth-child(3) {
+            width: 150px;
+            height: 150px;
+            top: 20%;
+            left: 70%;
+            animation-duration: 20s;
+        }
+
+        .shape:nth-child(4) {
+            width: 250px;
+            height: 250px;
+            top: 70%;
+            left: 10%;
+            animation-duration: 35s;
+            animation-direction: reverse;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+            25% {
+                transform: translate(50px, 50px) rotate(90deg);
+            }
+            50% {
+                transform: translate(0, 100px) rotate(180deg);
+            }
+            75% {
+                transform: translate(-50px, 50px) rotate(270deg);
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+            }
         }
 
         /* Container */
@@ -95,6 +168,22 @@
             color: var(--text-color);
             font-weight: 500;
             transition: var(--transition);
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: var(--primary-color);
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
 
         .nav-links a:hover {
@@ -133,8 +222,11 @@
         .hero-image {
             background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
             border-radius: 20px;
-            height: 400px;
             width: 400px;
+            height: 450px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 5px solid blue;
             position: relative;
             left: 10%;
             display: flex;
@@ -142,7 +234,21 @@
             justify-content: center;
             overflow: hidden;
             box-shadow: var(--shadow);
-            order: 1; /* Alterado para 1 (esquerda) */
+            order: 1;
+            transition: var(--transition);
+            animation: pulse 4s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(74, 108, 247, 0.7);
+            }
+            70% {
+                box-shadow: 0 0 0 20px rgba(74, 108, 247, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(74, 108, 247, 0);
+            }
         }
 
         .hero-image i {
@@ -151,7 +257,7 @@
         }
 
         .hero-text {
-            order: 2; /* Alterado para 2 (direita) */
+            order: 2;
         }
 
         .hero-text h1 {
@@ -163,6 +269,14 @@
         .hero-text p {
             margin-bottom: 1rem;
             font-size: 1.1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.8s ease, transform 0.8s ease;
+        }
+
+        .hero-text p.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Skills Section */
@@ -194,6 +308,13 @@
             transition: var(--transition);
             display: flex;
             flex-direction: column;
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .skill.show {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .skill:hover {
@@ -263,6 +384,149 @@
             transition: width 1.5s ease-in-out;
         }
 
+        /* Projects Section */
+        #projects {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .projects-scroll-container {
+            max-height: 600px;
+            overflow-y: auto;
+            padding-right: 10px;
+        }
+
+        .projects-scroll-container::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .projects-scroll-container::-webkit-scrollbar-track {
+            background: var(--card-bg);
+            border-radius: 10px;
+        }
+
+        .projects-scroll-container::-webkit-scrollbar-thumb {
+            background: var(--primary-color);
+            border-radius: 10px;
+        }
+
+        .projects-scroll-container::-webkit-scrollbar-thumb:hover {
+            background: var(--secondary-color);
+        }
+
+        .projects-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .project {
+            background-color: var(--card-bg);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            opacity: 0;
+            transform: translateX(-50px);
+        }
+
+        .project.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .project:nth-child(even) {
+            transform: translateX(50px);
+        }
+
+        .project:nth-child(even).show {
+            transform: translateX(0);
+        }
+
+        .project:hover {
+            transform: translateY(-5px) scale(1.02);
+        }
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+
+        .project:hover .project-image::before {
+            left: 100%;
+        }
+
+        .project-content {
+            padding: 1.5rem;
+        }
+
+        .project-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-color);
+        }
+
+        .project-description {
+            margin-bottom: 1rem;
+            color: var(--text-color);
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .tech-tag {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--primary-color);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: var(--transition);
+        }
+
+        .project-link:hover {
+            background-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
         /* Contact Section */
         #contact {
             padding: 5rem 0;
@@ -288,10 +552,17 @@
             text-decoration: none;
             transition: var(--transition);
             box-shadow: var(--shadow);
+            opacity: 0;
+            transform: scale(0.8);
+        }
+
+        .contact-btn.show {
+            opacity: 1;
+            transform: scale(1);
         }
 
         .contact-btn:hover {
-            transform: translateY(-5px);
+            transform: translateY(-5px) scale(1.1);
             background-color: var(--secondary-color);
         }
 
@@ -304,16 +575,31 @@
             border-radius: 20px;
         }
 
-        /* Animations */
-        .hidden {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 1s;
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: fixed;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            z-index: 1000;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
         }
 
-        .show {
+        .scroll-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: var(--primary-color);
+            opacity: 0.5;
+            transition: var(--transition);
+            cursor: pointer;
+        }
+
+        .scroll-dot.active {
             opacity: 1;
-            transform: translateY(0);
+            transform: scale(1.3);
         }
 
         /* Responsive Design */
@@ -330,6 +616,10 @@
             
             .hero-text {
                 order: 2;
+            }
+
+            .scroll-indicator {
+                display: none;
             }
         }
 
@@ -359,10 +649,30 @@
             .skill-percentage {
                 margin-top: 0.5rem;
             }
+            
+            .projects-container {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
+    <!-- 3D Background -->
+    <div class="background-3d">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <!-- Scroll Indicator -->
+    <div class="scroll-indicator">
+        <div class="scroll-dot active" data-section="hero"></div>
+        <div class="scroll-dot" data-section="skills"></div>
+        <div class="scroll-dot" data-section="projects"></div>
+        <div class="scroll-dot" data-section="contact"></div>
+    </div>
+
     <!-- Header & Navigation -->
     <header>
         <div class="container">
@@ -371,6 +681,7 @@
                 <ul class="nav-links">
                     <li><a href="#hero" data-i18n="about">Sobre Mim</a></li>
                     <li><a href="#skills" data-i18n="skills">Habilidades</a></li>
+                    <li><a href="#projects" data-i18n="projects">Projetos</a></li>
                     <li><a href="#contact" data-i18n="contact">Contato</a></li>
                 </ul>
                 <div class="nav-controls">
@@ -390,13 +701,13 @@
         <div class="container">
             <div class="hero-content">
                 <div class="hero-image">
-                   <img src="photo.png" alt=""     class=     "fas fa-user-circle" >
+                   <img src="photo.png" alt="Igor Gomes Silva" class="fas fa-user-circle">
                 </div>
                 <div class="hero-text">
                     <h1 data-i18n="hello">Olá! Eu sou Igor Gomes Silva</h1>
                     <p data-i18n="description1">Sou estudante do curso de Informática para Internet (InfoNet) na ETEC Adhemar Batista Heméritas. Tenho grande interesse pela área de tecnologia e busco constantemente aprender e aprimorar meus conhecimentos em programação, design, desenvolvimento web e ferramentas digitais.</p>
                     <p data-i18n="description2">Durante minha formação, estou adquirindo habilidades técnicas e práticas que me permitem criar soluções criativas e funcionais para diferentes necessidades, unindo teoria e prática. Além disso, valorizo muito o trabalho em equipe, a troca de experiências e a busca por inovação.</p>
-                    <p data-i18n="description3">Meu objetivo é continuar me desenvolvendo como profissional de tecnologia, contribuindo com projetos que envolvam creatividade, eficiência e impacto positivo.</p>
+                    <p data-i18n="description3">Meu objetivo é continuar me desenvolvendo como profissional de tecnologia, contribuindo com projetos que envolvam criatividade, eficiência e impacto positivo.</p>
                 </div>
             </div>
         </div>
@@ -407,7 +718,7 @@
         <div class="container">
             <h2 class="section-title" data-i18n="mySkills">Minhas Habilidades</h2>
             <div class="skills-container">
-                <div class="skill hidden">
+                <div class="skill">
                     <div class="skill-header">
                         <div class="skill-info">
                             <i class="fab fa-html5 skill-icon html-icon"></i>
@@ -420,7 +731,7 @@
                     </div>
                 </div>
                 
-                <div class="skill hidden">
+                <div class="skill">
                     <div class="skill-header">
                         <div class="skill-info">
                             <i class="fab fa-css3-alt skill-icon css-icon"></i>
@@ -433,7 +744,7 @@
                     </div>
                 </div>
                 
-                <div class="skill hidden">
+                <div class="skill">
                     <div class="skill-header">
                         <div class="skill-info">
                             <i class="fab fa-js-square skill-icon js-icon"></i>
@@ -446,7 +757,7 @@
                     </div>
                 </div>
                 
-                <div class="skill hidden">
+                <div class="skill">
                     <div class="skill-header">
                         <div class="skill-info">
                             <i class="fab fa-figma skill-icon figma-icon"></i>
@@ -459,7 +770,7 @@
                     </div>
                 </div>
                 
-                <div class="skill hidden">
+                <div class="skill">
                     <div class="skill-header">
                         <div class="skill-info">
                             <i class="fab fa-php skill-icon php-icon"></i>
@@ -469,6 +780,149 @@
                     </div>
                     <div class="progress-bar">
                         <div class="progress" data-width="10"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects">
+        <div class="container">
+            <h2 class="section-title" data-i18n="myProjects">Meus Projetos</h2>
+            <div class="projects-scroll-container">
+                <div class="projects-container">
+                    <div class="project">
+                        <div class="project-image">
+                            <img src="case.png"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title" data-i18n="project1Title">Animal City</h3>
+                            <p class="project-description" data-i18n="project1Desc">Você é Remy, um rato detetive que precisa resolver um assassinato misterioso na cidade dos animais. Os principais suspeitos são um urso, um tigre e um esquilo. Colete pistas, interrogue e descubra quem é o verdadeiro culpado antes que seja tarde demais.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Figma</span>
+                                <span class="tech-tag">aseprite</span>
+
+                            
+                            </div>
+                            <div class="project-links">
+                                <a href="https://www.figma.com/proto/lvWbhc8VmXdx804uE5pBIq/Untitled?node-id=36-25&p=f&t=o6HGEfL7CTkwhkEx-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=36%3A23&show-proto-sidebar=1" class="project-link">
+                                    <i class="fab fa-github"></i>Ver Projeto
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <img src="inter.jpg"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title" data-i18n="project2Title">Banco inter</h3>
+                            <p class="project-description" data-i18n="project2Desc">Este projeto consiste na recriação da interface do aplicativo Inter utilizando o Figma. O objetivo foi treinar habilidades de UI/UX Design, explorando conceitos de layout responsivo, organização de componentes e identidade visual. No redesign, mantive a essência do aplicativo original, mas trabalhei na hierarquia visual, tipografia e cores, deixando a navegação mais clara e agradável. O projeto serviu como prática para aprimorar tanto o domínio da ferramenta quanto o olhar de design para aplicativos modernos.</p>
+                            <div class="project-tech">
+                        
+                                <span class="tech-tag">Figma</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="https://www.figma.com/proto/szejku02SQJz9Y7LlN8vs8/Untitled?t=o6HGEfL7CTkwhkEx-0&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&node-id=14-35&starting-point-node-id=14%3A20" class="project-link">
+                                    <i class="fab fa-github"></i> Ver Projeto
+                                </a>
+                            
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <img src="pet.png"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title" data-i18n="project3Title">Pet Shop</h3>
+                            <p class="project-description" data-i18n="project3Desc">Criei a interface de um aplicativo/site de Petshop no Figma, focado em facilidade de navegação e experiência do usuário. O design destaca serviços, produtos e agendamentos de forma intuitiva, com cores acolhedoras e elementos visuais que transmitem confiança e carinho pelos pets.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Figma</span>
+                              
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fab fa-github"></i> Ver Projeto 
+                                </a>
+                           
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Additional Projects -->
+                    <div class="project">
+                        <div class="project-image">
+                            <i class="fas fa-blog"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Blog Pessoal</h3>
+                            <p class="project-description">Um blog pessoal desenvolvido com foco em design minimalista e experiência do usuário otimizada.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">PHP</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fab fa-github"></i> Código
+                                </a>
+                                <a href="#" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i> Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <i class="fas fa-gamepad"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Jogo da Memória</h3>
+                            <p class="project-description">Jogo da memória interativo com temas variados e sistema de pontuação.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">JavaScript</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fab fa-github"></i> Código
+                                </a>
+                                <a href="#" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i> Demo
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="project">
+                        <div class="project-image">
+                            <i class="fas fa-chart-line"></i>
+                        </div>
+                        <div class="project-content">
+                            <h3 class="project-title">Dashboard Analytics</h3>
+                            <p class="project-description">Dashboard para visualização de dados com gráficos interativos e responsivos.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">HTML</span>
+                                <span class="tech-tag">CSS</span>
+                                <span class="tech-tag">JavaScript</span>
+                                <span class="tech-tag">Chart.js</span>
+                            </div>
+                            <div class="project-links">
+                                <a href="#" class="project-link">
+                                    <i class="fab fa-github"></i> Código
+                                </a>
+                                <a href="#" class="project-link">
+                                    <i class="fas fa-external-link-alt"></i> Demo
+                                </a>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -517,7 +971,22 @@
             }
         });
 
-        // Scroll Animations
+        // Animate hero text paragraphs on scroll
+        const heroParagraphs = document.querySelectorAll('.hero-text p');
+        
+        const heroObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    setTimeout(() => {
+                        entry.target.classList.add('show');
+                    }, index * 300);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        heroParagraphs.forEach(p => heroObserver.observe(p));
+
+        // Scroll Animations for skills and projects
         const observerOptions = {
             root: null,
             rootMargin: '0px',
@@ -541,7 +1010,7 @@
             });
         }, observerOptions);
 
-        document.querySelectorAll('.hidden').forEach(el => {
+        document.querySelectorAll('.skill, .project, .contact-btn').forEach(el => {
             observer.observe(el);
         });
 
@@ -563,6 +1032,46 @@
             });
         });
 
+        // Scroll indicator functionality
+        const scrollDots = document.querySelectorAll('.scroll-dot');
+        const sections = document.querySelectorAll('section');
+        
+        // Update active dot based on scroll position
+        window.addEventListener('scroll', () => {
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                
+                if (pageYOffset >= sectionTop - 200) {
+                    currentSection = section.getAttribute('id');
+                }
+            });
+            
+            scrollDots.forEach(dot => {
+                dot.classList.remove('active');
+                if (dot.getAttribute('data-section') === currentSection) {
+                    dot.classList.add('active');
+                }
+            });
+        });
+        
+        // Click on dots to scroll to section
+        scrollDots.forEach(dot => {
+            dot.addEventListener('click', () => {
+                const sectionId = dot.getAttribute('data-section');
+                const section = document.getElementById(sectionId);
+                
+                if (section) {
+                    window.scrollTo({
+                        top: section.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
         // Language toggle functionality
         const languageToggle = document.getElementById('languageToggle');
         const languageText = document.getElementById('languageText');
@@ -573,26 +1082,42 @@
             'pt': {
                 'about': 'Sobre Mim',
                 'skills': 'Habilidades',
+                'projects': 'Projetos',
                 'contact': 'Contato',
                 'hello': 'Olá! Eu sou Igor Gomes Silva',
                 'description1': 'Sou estudante do curso de Informática para Internet (InfoNet) na ETEC Adhemar Batista Heméritas. Tenho grande interesse pela área de tecnologia e busco constantemente aprender e aprimorar meus conhecimentos em programação, design, desenvolvimento web e ferramentas digitais.',
                 'description2': 'Durante minha formação, estou adquirindo habilidades técnicas e práticas que me permitem criar soluções criativas e funcionais para diferentes necessidades, unindo teoria e prática. Além disso, valorizo muito o trabalho em equipe, a troca de experiências e a busca por inovação.',
                 'description3': 'Meu objetivo é continuar me desenvolvendo como profissional de tecnologia, contribuindo com projetos que envolvam criatividade, eficiência e impacto positivo.',
                 'mySkills': 'Minhas Habilidades',
+                'myProjects': 'Meus Projetos',
+                'project1Title': 'Portfólio Pessoal',
+                'project1Desc': 'Este site de portfólio responsivo desenvolvido com HTML, CSS e JavaScript para demonstrar minhas habilidades e projetos.',
+                'project2Title': 'Loja Virtual',
+                'project2Desc': 'Um protótipo de e-commerce desenvolvido durante o curso, com design responsivo e interface intuitiva.',
+                'project3Title': 'Sistema de Tarefas',
+                'project3Desc': 'Aplicativo web para gerenciamento de tarefas com funcionalidades de adicionar, editar e excluir atividades.',
                 'contactMe': 'Entre em Contato',
-                'copyright': '© 2023 Igor Gomes Silva. Todos os direitos reservados.'
+                'copyright': '© 2025 Igor Gomes Silva. Todos os direitos reservados.'
             },
             'en': {
                 'about': 'About Me',
                 'skills': 'Skills',
+                'projects': 'Projects',
                 'contact': 'Contact',
                 'hello': 'Hello! I am Igor Gomes Silva',
                 'description1': 'I am a student of Internet Informatics (InfoNet) at ETEC Adhemar Batista Heméritas. I have a great interest in the technology field and constantly seek to learn and improve my knowledge in programming, design, web development, and digital tools.',
                 'description2': 'During my training, I am acquiring technical and practical skills that allow me to create creative and functional solutions for different needs, combining theory and practice. Furthermore, I highly value teamwork, sharing experiences, and the pursuit of innovation.',
                 'description3': 'My goal is to continue developing as a technology professional, contributing to projects that involve creativity, efficiency, and positive impact.',
                 'mySkills': 'My Skills',
+                'myProjects': 'My Projects',
+                'project1Title': 'Personal Portfolio',
+                'project1Desc': 'This responsive portfolio website developed with HTML, CSS, and JavaScript to showcase my skills and projects.',
+                'project2Title': 'Online Store',
+                'project2Desc': 'An e-commerce prototype developed during the course, with responsive design and intuitive interface.',
+                'project3Title': 'Task Management System',
+                'project3Desc': 'Web application for task management with add, edit, and delete functionalities.',
                 'contactMe': 'Contact Me',
-                'copyright': '© 2023 Igor Gomes Silva. All rights reserved.'
+                'copyright': '© 2025 Igor Gomes Silva. All rights reserved.'
             }
         };
 
